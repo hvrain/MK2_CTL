@@ -1,6 +1,4 @@
 pandas
 numpy
-sys
-json
 scikit-learn
 matplotlib
