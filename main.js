@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 var MySQLStore = require('express-mysql-session')(session);
 const { PythonShell } = require("python-shell")
+var port = process.env.PORT;
 // const low = require('lowdb')
 // const FileSync = require('lowdb/adapters/FileSync');
 // const adapter = new FileSync('db.json')
@@ -459,6 +460,6 @@ app.use('*', function(req, res, next) {
     res.status(404).send('Sorry cant find that!');
 });
 
-app.listen(4000, function(){
-    console.log('server is listening on port 4000...');
+app.listen(port, function(){
+    console.log(`server is listening on port ${port}...`);
 })
