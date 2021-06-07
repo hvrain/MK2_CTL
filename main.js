@@ -337,52 +337,6 @@ app.get('/index', function(req, res){
     })
 })
 
-app.get('/grade',function(req,res){
-    var user_id = req.session.passport.user;
-    db.query("Select * from 성적 where 학번 in (?) order by 성적ID", [user_id] , function(err, result, fields){
-        console.log("시험: ", result[0]);
-        var subject_code = result[0].과목코드
-        const subject_name1= new Promise(function(resolve){
-            db.query("Select * From 과목 where 과목코드 in (?)", [subject_code] , function(err, result1, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
-                console.log("과목 : ", result1)
-                var name = result1[0].과목명
-                resolve(name);
-            });
-        })
-        var score_id = result[0].성적ID
-        const test_score= new Promise(function(resolve){
-            db.query("Select * From 시험 where 성적ID in (?)", [score_id] , function(err, result1, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
-                console.log("시험 : ", result1)
-                var data = {
-                    과제: result1[0].과제점수,
-                    중간점수: result1[0].중간점수
-                }
-                let options = {
-                    scriptPath: path.join(__dirname, "/"),
-                    args: [JSON.stringify(data)]
-                };
-                PythonShell.run("grades.py", options, function(err, result2){
-                    if (err) throw err;
-                    console.log(JSON.parse(result2[0]), JSON.parse(result2[1]));
-                    var predict_score = Math.floor(JSON.parse(result2[0]));
-                    var scores = [result1[0].과제점수, result1[0].과제점수 * 1.8,
-                     result1[0].중간점수,  result1[0].중간점수 * 1.8,
-                      predict_score, predict_score * 1.8]
-                    console.log("scores : ", scores)
-                    resolve(scores);
-                })
-            });
-        })
-        Promise.all([subject_name1, test_score]).then(function(notice){
-            console.log("subject name : ", notice);
-            req.session.save(function(){
-                res.render('grade_calc.ejs', {subject_name: notice[0], test_score: notice[1]});
-            })
-        })
-    });
-
-});
-
 app.get('/grade_detail',function(req,res){
     var user_id = req.session.passport.user;
     db.query("Select * from 성적 where 학번 in (?) order by 성적ID", [user_id] , function(err, result, fields){
@@ -411,8 +365,13 @@ app.get('/grade_detail',function(req,res){
                     if (err) throw err;
                     console.log(JSON.parse(result2[0]), JSON.parse(result2[1]));
                     var predict_score = Math.floor(JSON.parse(result2[0]));
-                    var arr = JSON.parse(result2[1]);
+                    var importance = JSON.parse(result2[1]);
+                    var arr = JSON.parse(result2[2]);
                     var predict_chart = new Array();
+                    
+                    importance[0] = Math.floor(importance[0]*100);
+                    importance[1] = 100 - importance[0];
+                    
                     for (var i = 0; i < 21; i++) {
                         predict_chart[i] = Math.floor(arr[i]);
                     }
@@ -424,14 +383,10 @@ app.get('/grade_detail',function(req,res){
                         m2: result1[0].중간점수 * 1.8,
                         s1: predict_score,
                         s2: predict_score * 1.8,
-                        chart: predict_chart
+                        chart: predict_chart,
+                        importance: importance
                     }
-                    var scores = [result1[0].과제점수, result1[0].과제점수 * 1.8,
-                        result1[0].중간점수, result1[0].중간점수 * 1.8,
-                        predict_score, predict_score * 1.8,
-                        predict_chart
-                    ]
-                    console.log("scores : ", scores)
+                    console.log("scores : ", scores_json);
                     resolve(scores_json);
                 })
             });
@@ -444,6 +399,60 @@ app.get('/grade_detail',function(req,res){
         })
     });
 });
+
+app.get('/lecture_room',function(req,res){
+    var user_id = req.session.passport.user;
+    var subcode = [];
+    var profcode = [];
+    
+    const lecture = new Promise(function(resolve){
+        db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
+            console.log("성적result: ", result);
+            var lecture = '';
+            
+
+            for(var i = 0; i < result.length; i++) {
+                subcode[i] = result[i].과목코드;
+            }
+            console.log("subcode",subcode);
+
+            db.query("Select * from 과목 where 과목코드 in (?) order by 시간", [subcode] , function(err, result1, fields1){
+                console.log("result111", result1);
+                for(var i=0;i<result1.length;i++){
+                    profcode[i]=result1[i].교수코드;
+                }
+                console.log("교수코드",profcode);
+                db.query("SELECT * FROM 교수 WHERE 교수코드 in (?) ",  [profcode], function(err,result2,fields2){
+                    console.log("교수result2", result2);                    
+                    if(result2[0]){
+                        lecture = [result1[0].과목명, result2[0].이름, result1[0].시간];
+                        console.log('here',lecture);
+                        resolve(lecture);
+                        console.log("Promise lecture: ", lecture);
+                    }
+                });
+            });
+        });
+    })
+    Promise.all([lecture]).then(function(notice){
+        req.session.save(function(){
+            
+            res.render('lectures.ejs',{notice:notice[0]});
+    })
+})
+})
+
+app.get('/lecture_detail',function(req,res){
+    req.session.save(function(){
+        res.render('lecture_detail.ejs');
+    })
+})
+
+app.get('/scores',function(req,res){
+    req.session.save(function(){
+        res.render('scores.ejs');
+    })
+})
 
 app.use('*', function(req, res, next) {
     console.log("fails", __dirname + req.url);

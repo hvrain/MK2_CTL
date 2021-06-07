@@ -47,7 +47,6 @@
 			<div class="content ctl-content-wrapper">
 				<p class="ctl-title" style="margin-bottom: 0px;"><i class="fas fa-book"></i> &nbsp; 예상 성적</p>
 			    <p style="margin: 3px; margin-bottom: 10px;">아래 계산은 예상 성적이며, 실제 산출시 다를 수 있습니다.</p>
-                <!--
 			    <div class="ctl-grade-box card proj-progress-card">
                     <h2 style="margin: 5px; text-align: center;">데이터베이스</h2>
                     <div class="ctl-grade">
@@ -118,22 +117,22 @@
                 <div class="ctl-grade-box card proj-progress-card">
                     <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
                     <!--<div id="ctl_grade_det_btn" class="ctl-grade-det-plus2" onclick="location.href='grade_detail.html';">더 보기</div>-->
-                    <h2 style="margin-top: 20px; margin-bottom: 10px; text-align: center;"><%-subject_name%></h2>
+                    <h2 style="margin-top: 20px; margin-bottom: 10px; text-align: center;"></h2>
                     <div class="ctl-grade">
                         <div class="ctl-grade-wrap">
                             <p class="ctl-grade-title ctl-gt-big">예상성적</p><br>
                             <div class="circle-wrap ctl-circle-big-out">
                                 <div class="circle">
                                     
-                                    <div class="mask full1 ctl-circle-big-out" style="--my-transform1: rotate(<%-test_score[5]%>deg)">
+                                    <div class="mask full1 ctl-circle-big-out" >
                                         <div class="fill f1 ctl-yellow ctl-circle-big-out"></div>
                                     </div>
                                    
-                                    <div class="mask half ctl-circle-big-out" style="--my-transform1: rotate(<%-test_score[5]%>deg)">
+                                    <div class="mask half ctl-circle-big-out">
                                         <div class="fill f1 ctl-yellow ctl-circle-big-out"></div>
                                     </div>
                                     
-                                    <div class="inside-circle ctl-circle-big-in"><%-test_score[4]%>점</div>
+                                    <div class="inside-circle ctl-circle-big-in"></div>
                                 
                                 </div>
                             </div>
@@ -144,11 +143,11 @@
                             <div class="circle-wrap">
                                 <div class="circle">
                                     
-                                    <div class="mask full2" style="--my-transform2: rotate(180deg)">
+                                    <div class="mask full2">
                                         <div class="fill f2 ctl-red"></div>
                                     </div>
                                    
-                                    <div class="mask half" style="--my-transform2: rotate(180deg)">
+                                    <div class="mask half">
                                         <div class="fill f2 ctl-red"></div>
                                     </div>
                                     
@@ -164,16 +163,16 @@
                             <div class="circle-wrap">
                                 <div class="circle">
                                     
-                                    <div class="mask full3" style="--my-transform3: rotate(<%-test_score[1]%>deg)">
+                                    <div class="mask full3">
                                         <div class="fill f3 ctl-blue"></div>
                                     </div>
                                    
-                                    <div class="mask half" style="--my-transform3: rotate(<%-test_score[1]%>deg)">
+                                    <div class="mask half">
                                         <div class="fill f3 ctl-blue"></div>
                                     </div>
                                     
                                     <div class="inside-circle">
-                                        <%-test_score[0]%>점
+                                       
                                     </div>
                                 
                                 </div>
@@ -184,16 +183,16 @@
                             <div class="circle-wrap">
                                 <div class="circle">
                                     
-                                    <div class="mask full4" style="--my-transform4: rotate(<%-test_score[3]%>deg)">
+                                    <div class="mask full4">
                                         <div class="fill f4 ctl-green"></div>
                                     </div>
                                    
-                                    <div class="mask half" style="--my-transform4: rotate(<%-test_score[3]%>deg)">
+                                    <div class="mask half">
                                         <div class="fill f4 ctl-green"></div>
                                     </div>
                                     
                                     <div class="inside-circle">
-                                        <%-test_score[2]%>점
+                                       
                                     </div>
                                 
                                 </div>

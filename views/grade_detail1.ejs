@@ -39,46 +39,31 @@
         
     <div id="menu-1" class="menu menu-box-left" 
          data-menu-width="250"
-         data-menu-load="menu_logged.ejs"
+         data-menu-load="menu.html"
          data-menu-effect="menu-over"
          data-menu-select="page-grade">
-    </div>
-
+    </div>        
+    
     <script type="text/javascript">
         google.charts.load('current', {packages: ['corechart', 'line']});
         google.charts.setOnLoadCallback(drawBasic);
         var not_dark = true;
-        var test_score = '<%- JSON.stringify(test_score)%>';
-        var predict_value = JSON.parse(test_score);
-        var predict_chart = predict_value.chart;
-        console.log("1");
-        console.log(test_score);
-        console.log(predict_value.chart);
 
         function drawBasic() {
             
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'x');
-            data.addColumn('number', '⠀상하축: 예상성적,⠀좌우축: 기말점수⠀');
-            //data.addColumn('number', '⠀x축: 과제점수,⠀y축: 예상성적⠀');
+            data.addColumn('number', '⠀상하축: 예상성적,⠀좌우축: 과제점수⠀⠀');
+            //data.addColumn('number', '⠀x축: 과제점수,⠀y축: 예상성적⠀⠀');
 
             data.addRows([
-                [0, predict_chart[0]],   [5, predict_chart[1]],  [10, predict_chart[2]],  [15, predict_chart[3]],
-                [20, predict_chart[4]], [25, predict_chart[5]],  [30, predict_chart[6]],  [35, predict_chart[7]],
-                [40, predict_chart[8]],  [45, predict_chart[9]], [50, predict_chart[10]], [55, predict_chart[11]],
-                [60, predict_chart[12]], [65, predict_chart[13]], [70, predict_chart[14]], [75, predict_chart[15]],
-                [80, predict_chart[16]], [85, predict_chart[17]], [90, predict_chart[18]], [95, predict_chart[19]],
-                [100, predict_chart[20]]
-            ]);
-
-            /*data.addRows([
                 [0, 0],   [3, 10],  [6, 10],  [9, 10],  [12, 10],  [15, 20],
                 [18, 20],  [21, 33],  [24, 33],  [27, 33],  [30, 33], [33, 50],
                 [36, 50], [39, 50], [42, 50], [45, 50], [48, 50], [51, 50],
                 [54, 50], [57, 50], [60, 78], [63, 78], [66, 78], [69, 78],
                 [72, 83], [75, 83], [78, 83], [81, 83], [84, 83], [87, 95], 
                 [90, 95], [93, 95], [96, 95], [98, 95], [100, 100]
-            ]);*/
+            ]);
 
             var options = {
                 hAxis: {
@@ -149,7 +134,7 @@
             
         }
     </script>
-
+    
     <a href="#" title="최상단으로"><div onclick="scroll_to_top()" class="ctl-to-top" style="width: 50px; height: 50px;"></div></a>
 	<div class="page-content header-clear-medium">
 		<section>
@@ -165,13 +150,13 @@
                             <br>
                             <div class="circle-wrap ctl-circle-big-out">
                                 <div class="circle">
-                                    <div class="mask full1 ctl-circle-big-out" style="--my-transform1: rotate(<%-test_score.s2%>deg)">
-                                        <div class="fill f1 ctl-yellow ctl-circle-big-out"></div>
+                                    <div class="mask full4 ctl-circle-big-out">
+                                        <div class="fill f4 ctl-yellow ctl-circle-big-out"></div>
                                     </div>
-                                    <div class="mask half ctl-circle-big-out" style="--my-transform1: rotate(<%-test_score.s2%>deg)">
-                                        <div class="fill f1 ctl-yellow ctl-circle-big-out"></div>
+                                    <div class="mask half ctl-circle-big-out">
+                                        <div class="fill f4 ctl-yellow ctl-circle-big-out"></div>
                                     </div>
-                                    <div class="inside-circle ctl-circle-big-in"><%-test_score.s1%>점</div>
+                                    <div class="inside-circle ctl-circle-big-in">A+</div>
                                 </div>
                             </div>
                         </div>
@@ -181,14 +166,14 @@
                             <br>
                             <div class="circle-wrap">
                                 <div class="circle">
-                                    <div class="mask full2" style="--my-transform2: rotate(180deg)">
-                                        <div class="fill f2 ctl-red"></div>
+                                    <div class="mask full4">
+                                        <div class="fill f4 ctl-red"></div>
                                     </div>
-                                    <div class="mask half" style="--my-transform2: rotate(180deg)">
-                                        <div class="fill f2 ctl-red"></div>
+                                    <div class="mask half">
+                                        <div class="fill f4 ctl-red"></div>
                                     </div>
                                     <div class="inside-circle">
-                                        100점
+                                        100%
                                     </div>
                                 </div>
                             </div>
@@ -198,14 +183,14 @@
                             <br>
                             <div class="circle-wrap">
                                 <div class="circle">
-                                    <div class="mask full3" style="--my-transform3: rotate(<%-test_score.p2%>deg)">
-                                        <div class="fill f3 ctl-blue"></div>
+                                    <div class="mask full1">
+                                        <div class="fill f1 ctl-blue"></div>
                                     </div>
-                                    <div class="mask half" style="--my-transform3: rotate(<%-test_score.p2%>deg)">
-                                        <div class="fill f3 ctl-blue"></div>
+                                    <div class="mask half">
+                                        <div class="fill f1 ctl-blue"></div>
                                     </div>
                                     <div class="inside-circle">
-                                        <%-test_score.p1%>점
+                                        90%
                                     </div>
                                 </div>
                             </div>
@@ -215,14 +200,14 @@
                             <br>
                             <div class="circle-wrap">
                                 <div class="circle">
-                                    <div class="mask full4" style="--my-transform4: rotate(<%-test_score.m2%>deg)">
-                                        <div class="fill f4 ctl-green"></div>
+                                    <div class="mask full5">
+                                        <div class="fill f5 ctl-green"></div>
                                     </div>
-                                    <div class="mask half" style="--my-transform4: rotate(<%-test_score.m2%>deg)">
-                                        <div class="fill f4 ctl-green"></div>
+                                    <div class="mask half">
+                                        <div class="fill f5 ctl-green"></div>
                                     </div>
                                     <div class="inside-circle">
-                                        <%-test_score.m1%>점
+                                        96%
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +215,7 @@
                     </div>
                     <p class="ctl-grade-title ctl-gt-big" style="margin-top: 70px;">인공지능 성적예측 결과</p>
                     <div id="ctl_chart_div" class="ctl-linear-chart" style="width: 500px; height: 300px;"></div>
-                    <p class="ctl-chart-desc"> &nbsp; &nbsp; 중간점수 <%-test_score.importance[1]%>% 과제점수 <%-test_score.importance[0]%>%</p>
+                    <p class="ctl-chart-desc"> &nbsp; &nbsp; 중간점수 20% 과제점수 10%</p>
                 </div>
             </div>
         </section>

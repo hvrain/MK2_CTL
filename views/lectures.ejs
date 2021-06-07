@@ -35,7 +35,7 @@
         
     <div id="menu-1" class="menu menu-box-left" 
          data-menu-width="250"
-         data-menu-load="menu.html"
+         data-menu-load="menu_logged.ejs"
          data-menu-effect="menu-over"
          data-menu-select="page-lectures">
     </div>                
@@ -49,12 +49,12 @@
                     &nbsp;진행중인 실시간강의
                 </p>
                 <div class="ctl-zoom-icon">
-                    <img width="60" height="60" src="./images/zoom_logo.png"></img>
+                    <img width="60" height="60" src="./images/zoom_logo.png">
                 </div>
                 <div class="ctl-zoom-info">
-                    <p>강의명: 객체지향 프로그래밍
-                    <br>교수: 장덕성
-                    <br>강의시간: 09:00 ~ 11:00</p>
+                    <p>강의명: <%-notice[0]%>
+                    <br>교수: <%-notice[1]%>
+                    <br>강의시간: <%-notice[2]%></p>
                 </div>
             </div>
         </section>
@@ -65,10 +65,10 @@
                     &nbsp;강의 전체보기
                 </div>
                 <div class="ctl-lecture-list" id="ctl_lecture_list">
-                    <a href="lecture_detail.html">
+                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학전공</div>
+                                <div class="ctl-label-course">컴퓨터공학과</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 02</div>
                             </div>
                             <div class="ctl-course-title">
@@ -77,10 +77,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="lecture_detail.html">
+                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">심리학과</div>
+                                <div class="ctl-label-course">컴퓨터공학과</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
                             </div>
                             <div class="ctl-course-title">
@@ -89,10 +89,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="lecture_detail.html">
+                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학전공</div>
+                                <div class="ctl-label-course">컴퓨터공학과</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 02</div>
                             </div>
                             <div class="ctl-course-title">
@@ -100,10 +100,10 @@
                                 <p class="prof">장덕성</p>
                             </div>
                         </div>
-                    <a href="lecture_detail.html">
+                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">교양학부</div>
+                                <div class="ctl-label-course">컴퓨터공학과</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
                             </div>
                             <div class="ctl-course-title">
@@ -112,10 +112,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="lecture_detail.html">
+                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">경찰행정학과</div>
+                                <div class="ctl-label-course">컴퓨터공학과</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
                             </div>
                             <div class="ctl-course-title">
