@@ -44,83 +44,71 @@
 	<div class="page-content header-clear-medium">
         <section>
             <div class="content ctl-content-wrapper">
-                <p class="ctl-lecture-list-title">
-                    <i class="fas fa-pencil-alt" style="margin-right: 1px;"></i>
-                    &nbsp;진행중인 실시간강의
-                </p>
-                <div class="ctl-zoom-icon">
-                    <img width="60" height="60" src="./images/zoom_logo.png">
-                </div>
-                <div class="ctl-zoom-info">
-                    <p>강의명: <%-notice[0][0]%>
-                    <br>교수: <%-notice[0][1]%>
-                    <br>강의시간: <%-notice[0][2]%></p>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="content ctl-content-wrapper">
                 <div class="ctl-lecture-list-title">
                     <i class="fas fa-university" style="margin: 0px 2px;"></i>
                     &nbsp;강의 전체보기
                 </div>
                 <div class="ctl-lecture-list" id="ctl_lecture_list">
-                    <a href="/lecture_detail">
                         <div class="ctl-lecture-box">
+                            <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
                             <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학과</div>
-                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
-                            </div>
-                            <div class="ctl-course-title">
-                                <h3><%-notice[0][0]%></h3>
-                                <p class="prof"><%-notice[0][1]%></p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="/lecture_detail">
-                        <div class="ctl-lecture-box">
-                            <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학과</div>
-                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
-                            </div>
-                            <div class="ctl-course-title">
-                                <h3><%-notice[1][0]%></h3>
-                                <p class="prof"><%-notice[1][1]%></p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="/lecture_detail">
-                        <div class="ctl-lecture-box">
-                            <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학과</div>
-                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
-                            </div>
-                            <div class="ctl-course-title">
-                                <h3><%-notice[2][0]%></h3>
-                                <p class="prof"><%-notice[2][1]%></p>
-                            </div>
-                        </div>
-                    <a href="/lecture_detail">
-                        <div class="ctl-lecture-box">
-                            <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학과</div>
-                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
-                            </div>
-                            <div class="ctl-course-title">
-                                <h3><%-notice[3][0]%></h3>
-                                <p class="prof"><%-notice[3][1]%></p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="/lecture_detail">
-                        <div class="ctl-lecture-box">
-                            <div class="ctl-lecture-label">
-                                <div class="ctl-label-course">컴퓨터공학과</div>
+                                <div class="ctl-label-course">컴퓨터공학전공</div>
                                 <div class="ctl-label-course ctl-label-under">분반코드: 02</div>
                             </div>
                             <div class="ctl-course-title">
-                                <h3><%-notice[4][0]%></h3>
-                                <p class="prof"><%-notice[4][1]%></p>
+                                <h3>컴퓨터공학 캡스톤디자인</h3>
+                                <p class="prof">고병철</p>
+                            </div>
+                        </div>
+                    
+                    <a href="/grade_detail">
+                        <div class="ctl-lecture-box">
+                            <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
+                            <div class="ctl-lecture-label">
+                                <div class="ctl-label-course">심리학과</div>
+                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
+                            </div>
+                            <div class="ctl-course-title">
+                                <h3>심리학개론</h3>
+                                <p class="prof">이재호</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/grade_detail">
+                        <div class="ctl-lecture-box">
+                            <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
+                            <div class="ctl-lecture-label">
+                                <div class="ctl-label-course">컴퓨터공학전공</div>
+                                <div class="ctl-label-course ctl-label-under">분반코드: 02</div>
+                            </div>
+                            <div class="ctl-course-title">
+                                <h3>객체지향 프로그래밍</h3>
+                                <p class="prof">장덕성</p>
+                            </div>
+                        </div>
+                    <a href="/grade_detail">
+                        <div class="ctl-lecture-box">
+                            <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
+                            <div class="ctl-lecture-label">
+                                <div class="ctl-label-course">교양학부</div>
+                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
+                            </div>
+                            <div class="ctl-course-title">
+                                <h3>연극과 문화사</h3>
+                                <p class="prof">김중효</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/grade_detail">
+                        <div class="ctl-lecture-box">
+                            <div id="ctl_grade_det_btn" class="ctl-grade-det-plus" onclick="location.href='/grade_detail';"><i class="fas fa-plus-square"></i></div>
+                            <div class="ctl-lecture-label">
+                                <div class="ctl-label-course">경찰행정학과</div>
+                                <div class="ctl-label-course ctl-label-under">분반코드: 01</div>
+                            </div>
+                            <div class="ctl-course-title">
+                                <h3>범죄학</h3>
+                                <p class="prof">허경미</p>
                             </div>
                         </div>
                     </a>

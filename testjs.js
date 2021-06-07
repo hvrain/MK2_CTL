@@ -13,10 +13,10 @@ let options = {
 
 PythonShell.run("grades.py", options, function(err, result){
     if (err) throw err;
-    
-    console.log("예상 성적 : ", JSON.parse(result[0]));
-    console.log("중요도 : ", JSON.parse(result[1]));
-    console.log("예상 성적 분포 : ", JSON.parse(result[2]));
+    console.log("과제 : ", JSON.parse(result[0]));
+    console.log("중간점수 : ", JSON.parse(result[1]));
+    console.log("예상 성적 : ", JSON.parse(result[2]));
+    console.log("예상 성적 분포 : ", JSON.parse(result[3]));
     
 })
 

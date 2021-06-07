@@ -13,7 +13,6 @@ var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 var MySQLStore = require('express-mysql-session')(session);
 const { PythonShell } = require("python-shell")
-var port = process.env.PORT;
 // const low = require('lowdb')
 // const FileSync = require('lowdb/adapters/FileSync');
 // const adapter = new FileSync('db.json')
@@ -234,107 +233,50 @@ app.get('/index', function(req, res){
                 console.log("result1", result1);
                 var notice = new Array();
                 if(result1[0]){
-                    for(var i=0; i<result1.length && i<4; i++){
+                    for(var i=0; i<result1.length && i<5; i++){
                         notice[i] = result1[i].제목;
                     }
                     console.log('공지', notice);
                     resolve(notice);
                     //res.render('index.ejs', {notice:notice,lecture:lecture});
                 } else{
-                    console.log("fail: load notice");
+                    console.log("fail11: load notice");
                 }
             })
         })
         
     })
 
-    const schedule_1 = new Promise(function(resolve){
+    const schedule = new Promise(function(resolve){
         db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
             for(var i = 0; i < result.length; i++) {
-                gradeid[0] = result[i].성적ID;
+                gradeid[i] = result[i].성적ID;
             }
-            db.query("Select * from 과제 where 성적ID in (?) order by 날짜", [gradeid] , function(err, result1, fields1){
-                // console.log("과제table: ", result1);
-                // db.query("SELECT * FROM 과목 WHERE 과목코드 in (?) ",  [result[0].과목코드], function(err,result2,fields2){
-                //     console.log("교수result2", result2);
-                    
+            db.query("Select * from 과제,과목 where 성적ID in (?) order by 날짜", [gradeid] , function(err, result1, fields1){
+                
                 var schedule = new Array();
                 if(result1[0]){
                     for(var i=0; i<result1.length && i<5; i++){
-                        schedule[i] = result1[i].날짜;
+                        schedule[i] = [result1[i].날짜, result1[i].과목명, result1[i].과제명];
                     }
                     console.log('schedule', schedule);
                     resolve(schedule);
-                    //res.render('index.ejs', {notice:notice,lecture:lecture});
+                    
                 } else{
-                    console.log("fail: load notice");
+                    console.log("fail22: load notice");
                 }
                 });
             });
         
     })
 
-    const schedule_2 = new Promise(function(resolve){
-        db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
-            
-            for(var i = 0; i < result.length; i++) {
-                gradeid[0] = result[i].성적ID;
-            }
-
-            db.query("Select * from 과제, 과목 where 성적ID in (?) order by 날짜", [gradeid] , function(err, result1, fields1){
-                // console.log("과제table: ", result1);
-                // db.query("SELECT * FROM 과목 WHERE 과목코드 in (?) ",  [result[0].과목코드], function(err,result2,fields2){
-                //     console.log("교수result2", result2);
-                    
-                var schedule = new Array();
-                if(result1[0]){
-                    for(var i=0; i<result1.length && i<5; i++){
-                        schedule[i] = result1[i].과목명;
-                    }
-                    console.log('schedule', schedule);
-                    resolve(schedule);
-                    //res.render('index.ejs', {notice:notice,lecture:lecture});
-                } else{
-                    console.log("fail: load notice");
-                }
-                });
-            });
-        
-    })
     
-    
-    const schedule_3 = new Promise(function(resolve){
-        db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
-            
-            for(var i = 0; i < result.length; i++) {
-                gradeid[0] = result[i].성적ID;
-            }
-
-            db.query("Select * from 과제 where 성적ID in (?) order by 날짜", [gradeid] , function(err, result1, fields1){
-                // console.log("과제table: ", result1);
-                // db.query("SELECT * FROM 과목 WHERE 과목코드 in (?) ",  [result[0].과목코드], function(err,result2,fields2){
-                //     console.log("교수result2", result2);
-                    
-                var schedule = new Array();
-                if(result1[0]){
-                    for(var i=0; i<result1.length && i<5; i++){
-                        schedule[i] = result1[i].과제명;
-                    }
-                    console.log('schedule', schedule);
-                    resolve(schedule);
-                    //res.render('index.ejs', {notice:notice,lecture:lecture});
-                } else{
-                    console.log("fail: load notice");
-                }
-                });
-            });
-        
-    })
+  
    
-    Promise.all([notice,lecture,schedule_1,schedule_2,schedule_3]).then(function(notice){
+    Promise.all([notice,lecture,schedule]).then(function(notice){
         //const new_notice = notice[0];
         console.log("lecture, notice :", notice);
-        res.render('index.ejs', {notice:notice});
+        res.render('index.ejs', {notice:notice, lecture:notice[2]});
     })
 })
 
@@ -409,10 +351,10 @@ app.get('/lecture_room',function(req,res){
     const lecture = new Promise(function(resolve){
         db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
             console.log("성적result: ", result);
-            var lecture = '';
+            var lecture = new Array();
             
 
-            for(var i = 0; i < result.length; i++) {
+            for(var i = 0; i < result.length&&i<5; i++) {
                 subcode[i] = result[i].과목코드;
             }
             console.log("subcode",subcode);
@@ -424,13 +366,18 @@ app.get('/lecture_room',function(req,res){
                 }
                 console.log("교수코드",profcode);
                 db.query("SELECT * FROM 교수 WHERE 교수코드 in (?) ",  [profcode], function(err,result2,fields2){
-                    console.log("교수result2", result2);                    
-                    if(result2[0]){
-                        lecture = [result1[0].과목명, result2[0].이름, result1[0].시간];
-                        console.log('here',lecture);
-                        resolve(lecture);
-                        console.log("Promise lecture: ", lecture);
-                    }
+                    console.log("교수result2", result2);  
+                    for(var i=0;i<result2.length;i++){
+                        lecture[i]=[result1[i].과목명, result2[i].이름, result1[i].시간];
+                    }                  
+                    resolve(lecture);
+                    console.log("Promise lecture: ",lecture);
+                    // if(result2[0]){
+                    //     lecture = [result1[0].과목명, result2[0].이름, result1[0].시간];
+                    //     console.log('here',lecture);
+                    //     resolve(lecture);
+                    //     console.log("Promise lecture: ", lecture);
+                    // }
                 });
             });
         });
@@ -450,9 +397,50 @@ app.get('/lecture_detail',function(req,res){
 })
 
 app.get('/scores',function(req,res){
-    req.session.save(function(){
-        res.render('scores.ejs');
+    var user_id = req.session.passport.user;
+    var subcode = [];
+    var profcode = [];
+    
+    const lecture = new Promise(function(resolve){
+        db.query("Select * From 성적 where 학번 = ?", [user_id] , function(err, result, fields) {  //?부분이 [user_id]값과 같은 것을 찾음
+            console.log("성적result: ", result);
+            var lecture = new Array();
+            
+
+            for(var i = 0; i < result.length; i++) {
+                subcode[i] = result[i].과목코드;
+            }
+            console.log("subcode",subcode);
+
+            db.query("Select * from 과목 where 과목코드 in (?) order by 시간", [subcode] , function(err, result1, fields1){
+                console.log("result111", result1);
+                for(var i=0;i<result1.length;i++){
+                    profcode[i]=result1[i].교수코드;
+                }
+                console.log("교수코드",profcode);
+                db.query("SELECT * FROM 교수 WHERE 교수코드 in (?) ",  [profcode], function(err,result2,fields2){
+                    console.log("교수result2", result2);  
+                    for(var i=0;i<result2.length;i++){
+                        lecture[i]=[result1[i].과목명, result2[i].이름, result1[i].시간];
+                    }                  
+                    resolve(lecture);
+                    console.log("Promise lecture: ",lecture);
+                    // if(result2[0]){
+                    //     lecture = [result1[0].과목명, result2[0].이름, result1[0].시간];
+                    //     console.log('here',lecture);
+                    //     resolve(lecture);
+                    //     console.log("Promise lecture: ", lecture);
+                    // }
+                });
+            });
+        });
     })
+    Promise.all([lecture]).then(function(notice){
+        req.session.save(function(){
+            
+            res.render('scores.ejs',{notice:notice[0]});
+    })
+})
 })
 
 app.use('*', function(req, res, next) {
@@ -460,6 +448,6 @@ app.use('*', function(req, res, next) {
     res.status(404).send('Sorry cant find that!');
 });
 
-app.listen(port, function(){
-    console.log(`server is listening on port ${port}...`);
+app.listen(4000, function(){
+    console.log('server is listening on port 4000...');
 })
