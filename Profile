@@ -1,1 +1,2 @@
-web: gunicorn 
+web: node main.js
+pipinstall: pip install -r requirements.txt
